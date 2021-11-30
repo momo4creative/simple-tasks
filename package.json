@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.24.0",
     "cookie-universal": "^2.1.5",
+    "date-fns": "^2.26.0",
     "formik": "^2.2.9",
     "framer-motion": "^5.3.3",
     "react": "^17.0.0",

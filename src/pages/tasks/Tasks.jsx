@@ -21,8 +21,10 @@ export default function Tasks() {
   }, []);
 
   return (
-    <div className="px-4 space-y-4">
-      <div className="text-2xl p-4">List Tasks</div>
+    <div className="space-y-4">
+      <div className="text-2xl font-bold tracking-widest p-4 bg-blue-900">
+        List Tasks
+      </div>
 
       {isLoading ? (
         <div className="flex justify-center">
