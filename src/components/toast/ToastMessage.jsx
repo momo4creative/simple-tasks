@@ -16,6 +16,9 @@ export default function ToastMessage() {
       if (old) {
         // console.log(old);
         setHidding(old.id);
+        setTimeout(() => {
+          deleteToast(old.id);
+        }, 1500);
       }
     }, 5000);
   }
