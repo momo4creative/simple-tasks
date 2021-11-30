@@ -1,7 +1,7 @@
 import {} from "react";
 import { Routes, Route } from "react-router-dom";
-import { Home, Login, Register, Tasks } from "./pages";
 import { AnimatePresence } from "framer-motion";
+import { Home, Login, Register, Tasks } from "./pages";
 
 function App() {
   return (
