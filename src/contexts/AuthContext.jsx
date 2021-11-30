@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import cookies from "cookie-universal";
 import axios from "axios";
+import { useToastContext } from "./ToastContext";
 
 const AuthContext = createContext();
 export const useAuthContext = () => {
@@ -12,6 +13,7 @@ export const useAuthContext = () => {
 const URL_AUTH = import.meta.env.VITE_API_URL + "/auth";
 
 export default function AuthContextProvider({ children }) {
+  const { toast } = useToastContext();
   const navigate = useNavigate();
   const TOKEN = cookies().get("accessToken");
 
@@ -59,9 +61,11 @@ export default function AuthContextProvider({ children }) {
     login: async (body) => {
       try {
         const response = await axios.post(URL_AUTH + "/login", body);
+        toast.success("Berhasil login !");
         handleLoginSuccess(response.data);
       } catch (err) {
         if (err.response) {
+          toast.success("Gagal registrasi user baru !");
           handleError(err.response);
           return err.response.data;
         }
@@ -71,9 +75,11 @@ export default function AuthContextProvider({ children }) {
       try {
         const response = await axios.post(URL_AUTH + "/register", body);
         handleSuccess(response.data);
+        toast.success("Berhasil registrasi user baru !");
         navigate("/login");
       } catch (err) {
         if (err.response) {
+          toast.error("Gagal registrasi user baru !");
           handleError(err.response);
           return err.response.data;
         }

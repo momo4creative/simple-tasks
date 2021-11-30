@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import cookies from "cookie-universal";
+import { useToastContext } from "./ToastContext";
 
 const TaskContext = createContext();
 export const useTaskContext = () => {
@@ -11,6 +12,8 @@ export const useTaskContext = () => {
 const URL_TASK = import.meta.env.VITE_API_URL + "/tasks";
 
 export default function TaskContextProvider({ children }) {
+  const { toast } = useToastContext();
+
   const navigate = useNavigate();
   const [tasks, setTasks] = useState();
 
@@ -44,27 +47,35 @@ export default function TaskContextProvider({ children }) {
       try {
         const response = await axios.post(URL_TASK, body, headerOption);
         cb(null, response.data);
-        console.log("ok");
+        toast.success("Berhasil menambah tugas baru !");
+        // console.log("ok");
       } catch (err) {
         console.log("error");
         handleError(err.response);
         cb(err.response, null);
+        toast.error("Gagal menambah tugas baru !");
       }
     },
 
     updateCheck: async (id, body) => {
       try {
         await axios.put(URL_TASK + "/" + id, body, headerOption);
+        toast.success("Berhasil mengubah tugas !");
       } catch (err) {
         handleError(err.response);
+        toast.error("Gagal mengubah tugas !");
         return err.response;
       }
     },
     delete: async (id) => {
+      const yes = confirm("Apakah yakin menghapus");
+      if (!yes) return "Batal menghapus";
       try {
         await axios.delete(URL_TASK + "/" + id, headerOption);
+        toast.success("Berhasil menghapus tugas !");
       } catch (err) {
         handleError(err.response);
+        toast.error("Gagal menghapus tugas !");
         return err.response;
       }
     },
