@@ -39,6 +39,23 @@ export default function TaskContextProvider({ children }) {
         return err.response;
       }
     },
+
+    updateCheck: async (id, body) => {
+      try {
+        await axios.put(URL_TASK + "/" + id, body, headerOption);
+      } catch (err) {
+        handleError(err.response);
+        return err.response;
+      }
+    },
+    delete: async (id) => {
+      try {
+        await axios.put(URL_TASK + "/" + id, headerOption);
+      } catch (err) {
+        handleError(err.response);
+        return err.response;
+      }
+    },
   };
 
   //---------

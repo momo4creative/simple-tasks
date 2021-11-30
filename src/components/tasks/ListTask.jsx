@@ -12,8 +12,15 @@ export default function ListTask() {
 
   const handleCheck = (id, value) => {
     setCheckLoad(true);
-    ApiTask.updateCheck(id, value).then((err) => {
+    ApiTask.updateCheck(id, { completed: value }).then((err) => {
       setCheckLoad(false);
+      console.log(err);
+      if (!err) {
+        const newTasks = tasks.map((task) => {
+          if (task._id == id) return (task.completed = value);
+        });
+        setTasks(newTasks);
+      }
     });
   };
 
@@ -21,6 +28,11 @@ export default function ListTask() {
     setTrashLoad(true);
     ApiTask.delete(id).then((err) => {
       setTrashLoad(false);
+      console.log(err);
+      if (!err) {
+        const newTasks = tasks.filter((task) => task._id != id);
+        setTasks(newTasks);
+      }
     });
   };
 
@@ -28,7 +40,10 @@ export default function ListTask() {
   return (
     <ul className="space-y-2 px-4">
       {tasks.map((task) => (
-        <li className="bg-gray-900 rounded-md p-2 flex justify-between items-start">
+        <li
+          key={task._id}
+          className="bg-gray-900 rounded-md p-2 flex justify-between items-start"
+        >
           <div className="container mx-2">
             <div className={`text-lg ${task.completed && "text-green-500"}`}>
               {task.title}
