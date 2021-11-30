@@ -40,6 +40,18 @@ export default function TaskContextProvider({ children }) {
       }
     },
 
+    add: async (body, cb) => {
+      try {
+        const response = await axios.post(URL_TASK, body, headerOption);
+        cb(null, response.data);
+        console.log("ok");
+      } catch (err) {
+        console.log("error");
+        handleError(err.response);
+        cb(err.response, null);
+      }
+    },
+
     updateCheck: async (id, body) => {
       try {
         await axios.put(URL_TASK + "/" + id, body, headerOption);

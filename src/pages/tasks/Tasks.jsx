@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import { Loader } from "../../components/main";
-import { ListTask } from "../../components/tasks";
+import { FormAddTask, ListTask } from "../../components/tasks";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useTaskContext } from "../../contexts/TaskContext";
 
@@ -35,6 +35,8 @@ export default function Tasks() {
       ) : (
         <ListTask />
       )}
+
+      <FormAddTask />
     </div>
   );
 }
