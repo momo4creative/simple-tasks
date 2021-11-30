@@ -7,13 +7,13 @@ import { Loader } from "../main";
 export default function ListTask() {
   const { tasks, setTasks, ApiTask } = useTaskContext();
 
-  const [checkLoad, setCheckLoad] = useState(false);
-  const [trashLoad, setTrashLoad] = useState(false);
+  const [checkLoad, setCheckLoad] = useState();
+  const [trashLoad, setTrashLoad] = useState();
 
   const handleCheck = (id, value) => {
-    setCheckLoad(true);
+    setCheckLoad(id);
     ApiTask.updateCheck(id, { completed: value }).then((err) => {
-      setCheckLoad(false);
+      setCheckLoad();
       console.log(err);
       if (!err) {
         const newTasks = tasks.map((task) => {
@@ -26,9 +26,9 @@ export default function ListTask() {
   };
 
   const handleTrash = (id) => {
-    setTrashLoad(true);
+    setTrashLoad(id);
     ApiTask.delete(id).then((err) => {
-      setTrashLoad(false);
+      setTrashLoad();
       console.log(err);
       if (!err) {
         const newTasks = tasks.filter((task) => task._id != id);
@@ -69,14 +69,14 @@ export default function ListTask() {
                 className="text-green-500"
                 onClick={() => handleCheck(task._id, !task.completed)}
               >
-                {checkLoad ? <Loader /> : <SvgCheckCircle />}
+                {checkLoad == task._id ? <Loader /> : <SvgCheckCircle />}
               </button>
               <button
                 type="button"
                 className="text-red-500"
                 onClick={() => handleTrash(task._id)}
               >
-                {trashLoad ? <Loader /> : <SvgTrash />}
+                {trashLoad == task._id ? <Loader /> : <SvgTrash />}
               </button>
             </div>
           )}
