@@ -1,26 +1,38 @@
-import { useLayoutEffect } from "react";
-import { useNavigate, Outlet } from "react-router-dom";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { Loader } from "../../components/main";
+import { ListTask } from "../../components/tasks";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useTaskContext } from "../../contexts/TaskContext";
 
 export default function Tasks() {
-  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+
   const { ApiAuth } = useAuthContext();
-  const { ApiTask } = useTaskContext();
+  const { tasks, setTasks, ApiTask } = useTaskContext();
 
   useLayoutEffect(() => {
-    console.log("dari tasks");
     ApiAuth.get();
-    ApiTask.getAll();
+  }, []);
+
+  useEffect(() => {
+    ApiTask.get().then((err) => {
+      setIsLoading(false);
+    });
   }, []);
 
   return (
-    <div className="p-4">
-      <div className="p-4 text-xl">Daftar Task</div>
+    <div className="px-4 space-y-4">
+      <div className="text-2xl p-4">List Tasks</div>
 
-      <div>
-        <Outlet />
-      </div>
+      {isLoading ? (
+        <div className="flex justify-center">
+          <Loader />
+        </div>
+      ) : !tasks ? (
+        <div>Tidak ada data</div>
+      ) : (
+        <ListTask />
+      )}
     </div>
   );
 }

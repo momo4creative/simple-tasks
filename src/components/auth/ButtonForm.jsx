@@ -13,7 +13,7 @@ export default function ButtonForm({ label, props, ...other }) {
           <div className="text-blue-500 h-6 w-6">
             <Loader />
           </div>
-          <span>"proses..."</span>
+          <span className="ml-2">proses...</span>
         </>
       ) : (
         <span>{label}</span>

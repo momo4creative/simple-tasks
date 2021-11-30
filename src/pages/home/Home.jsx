@@ -1,16 +1,15 @@
-import { useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "../../components/main";
-import { useAuthContext } from "../../contexts/AuthContext";
 
 export default function Home() {
   const navigate = useNavigate();
-  const { ApiAuth } = useAuthContext();
 
-  // useLayoutEffect(() => {
-  //   console.log("dari home");
-  //   ApiAuth.get();
-  // }, []);
+  useEffect(() => {
+    navigate("/tasks");
+    // console.log("dari home");
+    // ApiAuth.get();
+  }, []);
 
   return (
     <div className="">
