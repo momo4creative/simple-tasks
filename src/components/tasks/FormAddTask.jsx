@@ -34,7 +34,7 @@ export default function FormAddTask() {
         <SvgPlus />
       </button>
 
-      <div className="container bg-gray-900/50 p-4">
+      <div className="container bg-gray-900 p-4">
         <form
           className="mt-4 space-x-2 flex h-10"
           onSubmit={formik.handleSubmit}
