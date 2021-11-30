@@ -18,7 +18,7 @@ export default function AuthContextProvider({ children }) {
   const [nick, setNick] = useState("Tamu");
 
   const handleSuccess = (data, path = null) => {
-    console.log("Success -> ", data);
+    // console.log("Success -> ", data);
     if (path == "login") navigate("/tasks");
   };
 

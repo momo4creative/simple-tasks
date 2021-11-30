@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import cookies from "cookie-universal";
@@ -62,7 +62,7 @@ export default function TaskContextProvider({ children }) {
     },
     delete: async (id) => {
       try {
-        await axios.put(URL_TASK + "/" + id, headerOption);
+        await axios.delete(URL_TASK + "/" + id, headerOption);
       } catch (err) {
         handleError(err.response);
         return err.response;

@@ -17,7 +17,8 @@ export default function ListTask() {
       console.log(err);
       if (!err) {
         const newTasks = tasks.map((task) => {
-          if (task._id == id) return (task.completed = value);
+          if (task._id == id) task.completed = value;
+          return task;
         });
         setTasks(newTasks);
       }
