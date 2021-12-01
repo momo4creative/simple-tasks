@@ -37,17 +37,28 @@ export default function FormAddTask() {
   return (
     <motion.section
       className="fixed bottom-0 container flex justify-center"
-      animate={isOpen ? { y: 0 } : { y: 80 }}
+      animate={isOpen ? { y: 0 } : { y: 90 }}
     >
-      <button
-        className="absolute -top-6 p-2 flex justify-center items-center group"
+      <motion.button
+        className={`absolute ${
+          isOpen ? "-top-6" : "-top-10"
+        } p-2 flex justify-center items-center group`}
         onClick={() => setIsOpen((pre) => !pre)}
+        animate={isOpen ? { rotate: 45 } : { rotate: 0 }}
       >
-        <span className="absolute w-8 h-8 group-hover:bg-blue-500 rounded-full filter blur-sm"></span>
-        <div className="relative bg-gray-900 w-8 h-8 rounded-full flex justify-center items-center">
+        <span
+          className={`absolute ${
+            isOpen ? "w-8 h-8" : "w-12 h-12"
+          } group-hover:bg-blue-500 rounded-full filter blur-sm`}
+        ></span>
+        <div
+          className={`relative  ${
+            isOpen ? "w-8 h-8 bg-gray-900" : "w-12 h-12 bg-blue-900"
+          } rounded-full flex justify-center items-center`}
+        >
           <SvgPlus />
         </div>
-      </button>
+      </motion.button>
 
       <div className="container bg-gray-900 p-4 rounded-t-xl">
         <form className="mt-4 space-x-2 flex" onSubmit={formik.handleSubmit}>
