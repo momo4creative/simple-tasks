@@ -59,7 +59,12 @@ export default function TaskContextProvider({ children }) {
 
     updateCheck: async (id, body) => {
       try {
-        await axios.put(URL_TASK + "/" + id, body, headerOption);
+        const response = await axios.put(
+          URL_TASK + "/check/" + id,
+          body,
+          headerOption
+        );
+        // console.log(response.data);
         toast.success("Berhasil mengubah tugas !");
       } catch (err) {
         handleError(err.response);

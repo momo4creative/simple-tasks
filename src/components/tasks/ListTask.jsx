@@ -11,6 +11,8 @@ export default function ListTask() {
   const [trashLoad, setTrashLoad] = useState();
 
   const handleCheck = (id, value) => {
+    // console.log(id, value);
+
     setCheckLoad(id);
     ApiTask.updateCheck(id, { completed: value }).then((err) => {
       setCheckLoad();

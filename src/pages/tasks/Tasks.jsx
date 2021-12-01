@@ -7,12 +7,7 @@ import { useTaskContext } from "../../contexts/TaskContext";
 export default function Tasks() {
   const [isLoading, setIsLoading] = useState(true);
 
-  const { ApiAuth } = useAuthContext();
   const { tasks, setTasks, ApiTask } = useTaskContext();
-
-  useLayoutEffect(() => {
-    ApiAuth.get();
-  }, []);
 
   useEffect(() => {
     ApiTask.get().then((err) => {
